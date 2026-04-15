@@ -24,6 +24,7 @@ TA_DB_PATH = os.getenv("TA_DB_PATH", "/opt/trading-data/trading_app.db")
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
+
 def _clean(series):
     return [None if pd.isna(x) else round(float(x), 4) for x in series]
 
@@ -90,7 +91,10 @@ def _ta_perf_summary():
 def _ta_watchlist():
     try:
         conn = _ta_conn()
-        fixed = {r["ticker"] for r in conn.execute("SELECT ticker FROM watchlist_tickers").fetchall()}
+        fixed = {
+            r["ticker"]
+            for r in conn.execute("SELECT ticker FROM watchlist_tickers").fetchall()
+        }
         if not fixed:
             conn.close()
             return [], None
@@ -100,7 +104,7 @@ def _ta_watchlist():
             f"SELECT ticker, last_price, buy_score, signal, reasoning, "
             f"win_rate, total_trades, total_pnl_pct, is_low_performance "
             f"FROM scanned_tickers WHERE ticker IN ({placeholders})",
-            list(fixed)
+            list(fixed),
         ).fetchall()
 
         last_refresh = None
@@ -159,14 +163,23 @@ PROJECTS = [
             "Automated scans (3× per day via Celery Beat) with email alerts on strong signals",
         ],
         "tech_stack": [
-            "CatBoost", "LightGBM", "DynamicOptimizedTheta", "Optuna",
-            "FastAPI", "Celery", "Redis", "Plotly", "VADER Sentiment", "yfinance",
+            "CatBoost",
+            "LightGBM",
+            "DynamicOptimizedTheta",
+            "Optuna",
+            "FastAPI",
+            "Celery",
+            "Redis",
+            "Plotly",
+            "VADER Sentiment",
+            "yfinance",
         ],
     },
 ]
 
 
 # ── Pages ─────────────────────────────────────────────────────────────────────
+
 
 @app.get("/")
 async def homepage(request: Request):
@@ -180,22 +193,30 @@ async def projects_page(request: Request):
 
 # Trading Analytics — must be defined BEFORE the generic /projects/{slug} route
 
+
 @app.get("/projects/trading-analytics", response_class=HTMLResponse)
 async def trading_analytics_page(request: Request):
     project = next(p for p in PROJECTS if p["slug"] == "trading-analytics")
     watchlist, last_refresh = _ta_watchlist()
     perf = _ta_perf_summary()
     return templates.TemplateResponse(
-        request, "trading_analytics_detail.html",
-        {"project": project, "watchlist": watchlist, "last_refresh": last_refresh, "perf": perf}
+        request,
+        "trading_analytics_detail.html",
+        {
+            "project": project,
+            "watchlist": watchlist,
+            "last_refresh": last_refresh,
+            "perf": perf,
+        },
     )
 
 
 @app.get("/projects/trading-analytics/plot/{ticker}", response_class=HTMLResponse)
 async def ta_plot_container(request: Request, ticker: str):
     return templates.TemplateResponse(
-        request, "trading_plot_container.html",
-        {"request": request, "ticker": ticker.strip().upper()}
+        request,
+        "trading_plot_container.html",
+        {"request": request, "ticker": ticker.strip().upper()},
     )
 
 
@@ -207,14 +228,16 @@ async def ta_plot_data(ticker: str):
     rows = conn.execute(
         "SELECT dt, open, high, low, close, volume FROM stock_data "
         "WHERE ticker=? AND interval='1d' ORDER BY dt ASC",
-        (ticker,)
+        (ticker,),
     ).fetchall()
 
     if not rows:
         conn.close()
         raise HTTPException(status_code=404, detail=f"No stock data for {ticker}")
 
-    df = pd.DataFrame(list(rows), columns=["dt", "open", "high", "low", "close", "volume"])
+    df = pd.DataFrame(
+        list(rows), columns=["dt", "open", "high", "low", "close", "volume"]
+    )
     df["dt"] = pd.to_datetime(df["dt"])
     df = df.set_index("dt").sort_index()
 
@@ -224,8 +247,8 @@ async def ta_plot_data(ticker: str):
     df["MA200"] = df["close"].rolling(200).mean()
 
     delta = df["close"].diff()
-    gain = delta.where(delta > 0, 0).ewm(alpha=1/14, adjust=False).mean()
-    loss = (-delta.where(delta < 0, 0)).ewm(alpha=1/14, adjust=False).mean()
+    gain = delta.where(delta > 0, 0).ewm(alpha=1 / 14, adjust=False).mean()
+    loss = (-delta.where(delta < 0, 0)).ewm(alpha=1 / 14, adjust=False).mean()
     df["RSI"] = 100 - (100 / (1 + gain / loss))
 
     ema12 = df["close"].ewm(span=12, adjust=False).mean()
@@ -238,9 +261,12 @@ async def ta_plot_data(ticker: str):
     # Backtest signals
     signals = conn.execute(
         "SELECT signal_type, date, price FROM backtest_signals WHERE ticker=? ORDER BY date",
-        (ticker,)
+        (ticker,),
     ).fetchall()
-    backtest_signals = [{"type": s["signal_type"], "date": s["date"], "price": s["price"]} for s in signals]
+    backtest_signals = [
+        {"type": s["signal_type"], "date": s["date"], "price": s["price"]}
+        for s in signals
+    ]
 
     # Current signal from scanned_tickers
     st = conn.execute(
@@ -250,7 +276,8 @@ async def ta_plot_data(ticker: str):
 
     # ML predictions
     latest_ts_row = conn.execute(
-        "SELECT MAX(prediction_date) as ts FROM ml_predictions WHERE ticker=?", (ticker,)
+        "SELECT MAX(prediction_date) as ts FROM ml_predictions WHERE ticker=?",
+        (ticker,),
     ).fetchone()
     latest_ts = latest_ts_row["ts"] if latest_ts_row else None
 
@@ -260,22 +287,26 @@ async def ta_plot_data(ticker: str):
 
     if latest_ts:
         try:
-            window_start = (datetime.fromisoformat(str(latest_ts)) - timedelta(seconds=60)).strftime('%Y-%m-%d %H:%M:%S')
+            window_start = (
+                datetime.fromisoformat(str(latest_ts)) - timedelta(seconds=60)
+            ).strftime("%Y-%m-%d %H:%M:%S")
         except Exception:
             window_start = latest_ts
 
         preds = conn.execute(
             "SELECT model_name, target_date, predicted_price, lower_bound_80, upper_bound_80 "
             "FROM ml_predictions WHERE ticker=? AND prediction_date >= ? ORDER BY model_name, target_date",
-            (ticker, window_start)
+            (ticker, window_start),
         ).fetchall()
 
         for p in preds:
             mn = p["model_name"]
             if mn not in prediction_intervals:
                 prediction_intervals[mn] = {
-                    "dates": [], "predicted_prices": [],
-                    "lower_bound_80": [], "upper_bound_80": []
+                    "dates": [],
+                    "predicted_prices": [],
+                    "lower_bound_80": [],
+                    "upper_bound_80": [],
                 }
             prediction_intervals[mn]["dates"].append(str(p["target_date"])[:10])
             prediction_intervals[mn]["predicted_prices"].append(p["predicted_price"])
@@ -284,9 +315,13 @@ async def ta_plot_data(ticker: str):
 
         metrics = conn.execute(
             "SELECT model_name, metric_name, metric_value FROM ml_model_metrics WHERE ticker=?",
-            (ticker,)
+            (ticker,),
         ).fetchall()
-        hit_rates = {m["model_name"]: m["metric_value"] for m in metrics if m["metric_name"] == "hit_rate"}
+        hit_rates = {
+            m["model_name"]: m["metric_value"]
+            for m in metrics
+            if m["metric_name"] == "hit_rate"
+        }
         best_model = max(hit_rates, key=hit_rates.get) if hit_rates else None
 
     conn.close()
@@ -323,7 +358,8 @@ async def ta_ml_forecast(ticker: str):
     conn = _ta_conn()
 
     latest_ts_row = conn.execute(
-        "SELECT MAX(prediction_date) as ts FROM ml_predictions WHERE ticker=?", (ticker,)
+        "SELECT MAX(prediction_date) as ts FROM ml_predictions WHERE ticker=?",
+        (ticker,),
     ).fetchone()
     latest_ts = latest_ts_row["ts"] if latest_ts_row else None
 
@@ -332,14 +368,16 @@ async def ta_ml_forecast(ticker: str):
         return {"error": f"No predictions for {ticker}"}
 
     try:
-        window_start = (datetime.fromisoformat(str(latest_ts)) - timedelta(seconds=60)).isoformat()
+        window_start = (
+            datetime.fromisoformat(str(latest_ts)) - timedelta(seconds=60)
+        ).isoformat()
     except Exception:
         window_start = latest_ts
 
     preds = conn.execute(
         "SELECT model_name, target_date, predicted_price, lower_bound_80, upper_bound_80 "
         "FROM ml_predictions WHERE ticker=? AND prediction_date >= ? ORDER BY model_name, target_date",
-        (ticker, window_start)
+        (ticker, window_start),
     ).fetchall()
 
     models = {}
@@ -347,7 +385,10 @@ async def ta_ml_forecast(ticker: str):
         mn = p["model_name"]
         if mn not in models:
             models[mn] = []
-        entry = {"date": str(p["target_date"])[:10], "price": round(float(p["predicted_price"]), 2)}
+        entry = {
+            "date": str(p["target_date"])[:10],
+            "price": round(float(p["predicted_price"]), 2),
+        }
         if p["lower_bound_80"] is not None:
             entry["lower_bound_80"] = round(float(p["lower_bound_80"]), 2)
             entry["upper_bound_80"] = round(float(p["upper_bound_80"]), 2)
@@ -355,24 +396,41 @@ async def ta_ml_forecast(ticker: str):
 
     metrics = conn.execute(
         "SELECT model_name, metric_name, metric_value FROM ml_model_metrics WHERE ticker=?",
-        (ticker,)
+        (ticker,),
     ).fetchall()
-    hit_rates = {m["model_name"]: m["metric_value"] for m in metrics if m["metric_name"] == "hit_rate"}
-    wapes = {m["model_name"]: m["metric_value"] for m in metrics if m["metric_name"] == "wape"}
+    hit_rates = {
+        m["model_name"]: m["metric_value"]
+        for m in metrics
+        if m["metric_name"] == "hit_rate"
+    }
+    wapes = {
+        m["model_name"]: m["metric_value"]
+        for m in metrics
+        if m["metric_name"] == "wape"
+    }
     best_model = max(hit_rates, key=hit_rates.get) if hit_rates else None
 
     conn.close()
-    return {"ticker": ticker, "models": models, "hit_rates": hit_rates, "wapes": wapes, "best_model": best_model}
+    return {
+        "ticker": ticker,
+        "models": models,
+        "hit_rates": hit_rates,
+        "wapes": wapes,
+        "best_model": best_model,
+    }
 
 
 # Generic project detail (all other slugs)
+
 
 @app.get("/projects/{slug}")
 async def project_detail(request: Request, slug: str):
     project = next((p for p in PROJECTS if p["slug"] == slug), None)
     if project is None:
         raise HTTPException(status_code=404, detail="Project not found")
-    return templates.TemplateResponse(request, "project_detail.html", {"project": project})
+    return templates.TemplateResponse(
+        request, "project_detail.html", {"project": project}
+    )
 
 
 @app.get("/api/projects")

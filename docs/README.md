@@ -189,5 +189,5 @@ PersonalWebsite/
 
 ---
 
-**Last Updated**: 2026-04-13  
+**Last Updated**: 2026-04-13
 **Maintainer**: Shree K Bhattarai

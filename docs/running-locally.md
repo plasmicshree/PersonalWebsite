@@ -1,5 +1,32 @@
 # Running the Website Locally
 
+## Full Stack Local Dev (Quick Start)
+
+Both repos must run simultaneously for the trading-analytics page to show live data.
+
+**Terminal 1 — trading-analytics (Docker):**
+```powershell
+cd D:\PythonRepos\trading-analytics
+docker compose up -d
+# Web: http://localhost:8000  |  Flower: http://localhost:5566/flower
+```
+
+**Terminal 2 — PersonalWebsite:**
+```powershell
+cd D:\PythonRepos\PersonalWebsite
+uvicorn app.main:app --reload --port 8080
+# Site: http://localhost:8080
+```
+
+To stop everything:
+```powershell
+# Terminal 2: Ctrl+C
+# Terminal 1:
+docker compose down
+```
+
+---
+
 ## Prerequisites
 - Python 3.11+ (verify: `python --version`)
 - Windows (hardcoded database path is Windows-specific)
@@ -231,8 +258,8 @@ TA_DB_PATH = "D:/PythonRepos/trading-analytics/data/trading_app.db"
 import sqlite3
 conn = sqlite3.connect("D:/PythonRepos/trading-analytics/data/trading_app.db")
 conn.execute("""
-    INSERT INTO model_performance_summary 
-    (mean_hit_rate, median_hit_rate, min_hit_rate, max_hit_rate, ticker_count) 
+    INSERT INTO model_performance_summary
+    (mean_hit_rate, median_hit_rate, min_hit_rate, max_hit_rate, ticker_count)
     VALUES (0.657, 0.633, 0.367, 0.967, 122)
 """)
 conn.commit()

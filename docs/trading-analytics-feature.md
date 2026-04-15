@@ -86,9 +86,9 @@ One dynamic tile (described above):
 <div class="flex items-start gap-3 bg-slate-800/40 border border-slate-700/60 rounded-lg px-4 py-3 mb-5">
   <svg class="w-4 h-4 text-slate-500 shrink-0 mt-0.5"><!-- lock icon --></svg>
   <p class="text-xs text-slate-500 leading-relaxed">
-    Core logic lives in a <strong class="text-slate-400">private repository</strong>. 
-    The system runs automated scans and emails me actionable signals 
-    <strong class="text-slate-400">3× daily</strong> — I use those alerts to make 
+    Core logic lives in a <strong class="text-slate-400">private repository</strong>.
+    The system runs automated scans and emails me actionable signals
+    <strong class="text-slate-400">3× daily</strong> — I use those alerts to make
     real stock purchases.
   </p>
 </div>

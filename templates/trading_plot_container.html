@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="flex-1 overflow-y-auto border border-slate-800 rounded-xl bg-slate-950/30">
                 <table class="min-w-full text-xs text-left sticky-header">
                     <thead class="bg-slate-900 text-slate-500 uppercase font-black tracking-widest sticky top-0 border-b border-slate-800">
@@ -109,7 +109,7 @@
     const historyBody = document.getElementById('history-body-' + ticker);
     const currentSignalEl = document.getElementById('current-signal-' + ticker);
     const tickerHeaderEl = document.getElementById('ticker-header-' + ticker);
-    
+
     // Aggregate elements
     const totalTradesEl = document.getElementById('total-trades-' + ticker);
     const winRateEl = document.getElementById('win-rate-' + ticker);
@@ -133,17 +133,17 @@
             }
             // Store data globally so the Unified plot can access metrics if needed
             window.latestMLForecastData = data;
-            
+
             // If the technical data has already arrived, refresh the unified plot to show Hit Rates
             if (window.latestTechnicalData) {
                 renderUnifiedPlot(window.latestTechnicalData);
             }
-            
+
             if (!data.models || Object.keys(data.models).length === 0) {
                 mlForecastBody.innerHTML = '<p class="text-gray-400 italic">No AI forecast models available.</p>';
                 return;
             }
-            
+
             const traces = [];
             const colors = {
                 'AutoARIMA': '#8b5cf6', // purple-500
@@ -158,36 +158,36 @@
                 predictions.forEach(p => allDatesSet.add(p.date));
                 // Ensure predictions are sorted by date string
                 const sortedPredictions = predictions.sort((a, b) => a.date.localeCompare(b.date));
-                
+
                 const hitRateVal = data.hit_rates ? data.hit_rates[modelName] : null;
                 const hitRate = (hitRateVal !== null && hitRateVal !== undefined)
-                    ? (hitRateVal * 100).toFixed(0) + '%' 
+                    ? (hitRateVal * 100).toFixed(0) + '%'
                     : 'N/A';
-                
+
                 const modelColor = colors[modelName] || '#3b82f6';
                 const isBestModel = data.best_model && modelName === data.best_model;
-                
+
                 // Check if this model has prediction intervals AND is the best model
                 const hasIntervals = isBestModel && predictions.some(p => p.lower_bound_80 !== undefined && p.upper_bound_80 !== undefined);
-                
+
                 if (hasIntervals) {
                     const intervalX = sortedPredictions.map(p => p.date);
                     traces.push({
                         x: intervalX.concat(intervalX.slice().reverse()),
                         y: sortedPredictions.map(p => p.upper_bound_80).concat(sortedPredictions.map(p => p.lower_bound_80).reverse()),
                         fill: 'toself',
-                        fillcolor: modelColor + '15', 
+                        fillcolor: modelColor + '15',
                         line: { color: 'transparent' },
                         name: `80% Range`,
                         showlegend: true,
                         hoverinfo: 'skip'
                     });
                 }
-                
-                const legendName = isBestModel 
+
+                const legendName = isBestModel
                     ? `<b>${modelName}</b> (Hit: ${hitRate})`
                     : `${modelName} (${hitRate})`;
-                
+
                 traces.push({
                     x: sortedPredictions.map(p => p.date),
                     y: sortedPredictions.map(p => p.price),
@@ -206,21 +206,21 @@
                 height: 400,
                 margin: { t: 10, b: 40, l: 40, r: 10 }, // Balanced margins
                 showlegend: true,
-                legend: { 
-                    orientation: 'h', 
-                    y: -0.3, 
-                    x: 0.5, 
+                legend: {
+                    orientation: 'h',
+                    y: -0.3,
+                    x: 0.5,
                     xanchor: 'center',
                     font: { size: 10, color: '#94a3b8' },
                     bgcolor: 'rgba(15, 23, 42, 0.5)',
                     bordercolor: '#1e293b',
                     borderwidth: 1
                 },
-                xaxis: { 
+                xaxis: {
                     type: 'category',
                     categoryorder: 'array',
                     categoryarray: categoryDates,
-                    tickfont: { size: 10, color: '#64748b' }, 
+                    tickfont: { size: 10, color: '#64748b' },
                     gridcolor: '#1e293b',
                     automargin: true,
                     fixedrange: true,
@@ -233,8 +233,8 @@
                     tickvals: categoryDates,
                     linecolor: '#334155'
                 },
-                yaxis: { 
-                    tickfont: { size: 10, color: '#64748b' }, 
+                yaxis: {
+                    tickfont: { size: 10, color: '#64748b' },
                     gridcolor: '#1e293b',
                     autorange: true,
                     title: { text: 'Price ($)', font: { size: 10, color: '#64748b' } },
@@ -251,11 +251,11 @@
             mlForecastBody.innerHTML = '';
             const chartDiv = document.createElement('div');
             // Use classes for sizing and ensure no overflow constraints
-            chartDiv.className = 'w-full h-[400px] min-w-0'; 
+            chartDiv.className = 'w-full h-[400px] min-w-0';
             mlForecastBody.appendChild(chartDiv);
-            
+
             hasMLPredictions = true;
-            
+
             // Layout shift - sidebar appears
             if (hasBacktestSignals || hasMLPredictions) {
                 historyDiv.classList.remove('hidden');
@@ -264,11 +264,11 @@
 
             // High Precision Render: Wait for next frame, then check width, then render
             requestAnimationFrame(() => {
-                Plotly.newPlot(chartDiv, traces, layout, { 
-                    displayModeBar: false, 
-                    responsive: true 
+                Plotly.newPlot(chartDiv, traces, layout, {
+                    displayModeBar: false,
+                    responsive: true
                 });
-                
+
                 // Final safety resize after a small delay to catch any transition ends
                 setTimeout(() => {
                     Plotly.Plots.resize(chartDiv);
@@ -294,7 +294,7 @@
                 plotDiv.innerHTML = '<p class="text-red-500 p-4">Error loading data for ' + ticker + '</p>';
                 return;
             }
-            
+
             // Store technical data globally
             window.latestTechnicalData = data;
 
@@ -321,7 +321,7 @@
             }
 
             const dates = data.dates;
-            
+
             // Trace 1: Price
             const tracePrice = {
                 x: dates,
@@ -461,7 +461,7 @@
             const shapes = [];
             let lastBuyDate = null;
             let lastBuyPrice = null;
-            
+
             // Aggregate Stats
             let totalTrades = 0;
             let winningTrades = 0;
@@ -509,7 +509,7 @@
                     const sellPrice = s.price; // Stored price already includes slippage
                     const pnl = ((sellPrice - lastBuyPrice) / lastBuyPrice) * 100;
                     cumulativePnl += pnl;
-                    
+
                     // Real-world Compounded Growth Calculation (including fees)
                     // Note: price already includes slippage from Backtester logic
                     const shares = Math.floor((currentCapital - commission) / lastBuyPrice);
@@ -543,11 +543,11 @@
                 // Add row to table
                 const row = document.createElement('tr');
                 row.className = 'border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors';
-                
+
                 const currentMultiplier = currentCapital / initialCapital;
                 const multiplierText = s.type === 'SELL' ? currentMultiplier.toFixed(2) + "x" : "-";
                 const multiplierClass = s.type === 'SELL' ? (currentMultiplier >= 1 ? "text-slate-200" : "text-slate-500") : "text-slate-600";
-                
+
                 row.innerHTML = `
                     <td class="px-3 py-2 font-bold ${s.type === 'BUY' ? 'text-emerald-400' : 'text-rose-400'}">${s.type}</td>
                     <td class="px-3 py-2 text-slate-400 text-xs">${s.date}</td>
@@ -597,34 +597,34 @@
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
                 font: { color: '#94a3b8', size: 9, family: 'JetBrains Mono, monospace' },
-                legend: { 
-                    orientation: 'h', 
+                legend: {
+                    orientation: 'h',
                     y: -0.2,
                     font: { size: 9, color: '#94a3b8' },
                     bgcolor: 'rgba(15, 23, 42, 0.5)',
                     bordercolor: '#1e293b',
                     borderwidth: 1
                 },
-                xaxis: { 
-                    anchor: 'y3', 
-                    type: 'date', 
-                    nticks: 10, 
-                    tickformat: '%b %d', 
+                xaxis: {
+                    anchor: 'y3',
+                    type: 'date',
+                    nticks: 10,
+                    tickformat: '%b %d',
                     rangeslider: {visible: false},
-                    tickfont: { size: 9, color: '#64748b' }, 
+                    tickfont: { size: 9, color: '#64748b' },
                     gridcolor: '#1e293b',
                     linecolor: '#334155'
                 },
-                yaxis: { 
-                    domain: [0.5, 1], 
+                yaxis: {
+                    domain: [0.5, 1],
                     title: { text: 'Price', font: { size: 9, color: '#64748b' } },
                     tickfont: { size: 9, color: '#64748b' },
                     gridcolor: '#1e293b',
                     linecolor: '#334155',
                     automargin: true
                 },
-                yaxis2: { 
-                    domain: [0.25, 0.45], 
+                yaxis2: {
+                    domain: [0.25, 0.45],
                     title: { text: 'RSI', font: { size: 9, color: '#64748b' } },
                     range: [0, 100],
                     tickfont: { size: 9, color: '#64748b' },
@@ -632,8 +632,8 @@
                     linecolor: '#334155',
                     automargin: true
                 },
-                yaxis3: { 
-                    domain: [0, 0.2], 
+                yaxis3: {
+                    domain: [0, 0.2],
                     title: { text: 'MACD', font: { size: 9, color: '#64748b' } },
                     tickfont: { size: 9, color: '#64748b' },
                     gridcolor: '#1e293b',
@@ -647,7 +647,7 @@
 
             // Clear the loading spinner before rendering the plot
             plotDiv.innerHTML = '';
-            
+
             const traces = [
                 tracePrice, traceMA20, traceMA50, traceMA200, traceBuy, traceSell,
                 traceRSI, traceRSIDynamic, traceRSIOverbought, traceRSIOversold,
@@ -721,7 +721,7 @@
             } else if (window.latestMLForecastData && window.latestMLForecastData.hit_rates) {
                 hrRaw = window.latestMLForecastData.hit_rates[mName];
             }
-            
+
             const hitRateStr = (hrRaw !== null && hrRaw !== undefined) ? (hrRaw * 100).toFixed(0) + '%' : 'N/A';
             const isBest = (mName === bestModelName);
             const mColor = colors[mName] || '#3b82f6';
@@ -757,14 +757,14 @@
                 mode: 'lines' + (isBest ? '+markers' : ''),
                 name: isBest ? `<b>${mName}</b> (Hit: ${hitRateStr})` : `${mName} (${hitRateStr})`,
                 legendgroup: mName,
-                line: { 
-                    color: mColor, 
+                line: {
+                    color: mColor,
                     width: isBest ? 3 : 2, // Reduced thickness for best model
                     dash: isBest ? 'solid' : 'dot' // Dots instead of dash for secondary
                 },
-                marker: isBest ? { 
-                    size: 5, 
-                    color: mColor, 
+                marker: isBest ? {
+                    size: 5,
+                    color: mColor,
                     line: { color: '#ffffff', width: 1 } // Add contrast border to markers
                 } : { size: 0 },
                 hovertemplate: '<b>' + mName + '</b>: $%{y:.2f}<extra></extra>'
