@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pip install pandas --quiet)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('dates:', len\\(d.get\\('dates',[]\\)\\), '| signal:', d.get\\('signal'\\), '| backtest signals:', len\\(d.get\\('backtest_signals',[]\\)\\)\\)\")",
+      "Bash(python -m uvicorn app.main:app --host 127.0.0.1 --port 8091)",
+      "Bash(curl -s http://127.0.0.1:8091/projects/trading-analytics/api/plot-data/CLS)",
+      "Bash(curl -s http://127.0.0.1:8091/projects/trading-analytics)",
+      "Bash(curl -s \"http://127.0.0.1:8091/projects/trading-analytics/api/plot-data/CLS\")",
+      "Bash(python -c ':*)",
+      "Bash(python -c \" import sys, json d = json.load\\(sys.stdin\\) pi = d.get\\('prediction_intervals', {}\\) print\\('Prediction models:', list\\(pi.keys\\(\\)\\)\\) if pi: m = list\\(pi.keys\\(\\)\\)[0] print\\('Sample forecast dates:', pi[m]['dates'][:3]\\) print\\('Best model:', d.get\\('best_model'\\)\\) \")",
+      "Bash(curl -s \"http://127.0.0.1:8091/projects/trading-analytics\")",
+      "Bash(python -m uvicorn app.main:app --host 127.0.0.1 --port 8092)",
+      "Bash(curl -s \"http://127.0.0.1:8092/projects/trading-analytics/api/plot-data/CLS\")",
+      "Bash(python -c \" import sys, json d = json.load\\(sys.stdin\\) pi = d.get\\('prediction_intervals', {}\\) print\\('Prediction models:', list\\(pi.keys\\(\\)\\)\\) if pi: m = list\\(pi.keys\\(\\)\\)[0] print\\('Sample dates:', pi[m]['dates'][:3]\\) print\\('Best model:', d.get\\('best_model'\\)\\) \")",
+      "Bash(curl -s \"http://127.0.0.1:8092/projects/trading-analytics\")",
+      "Bash(python -m uvicorn app.main:app --port 8093 --host 127.0.0.1)",
+      "Bash(curl -s http://127.0.0.1:8093/projects/trading-analytics)",
+      "Bash(sqlite3 \"D:/PythonRepos/trading-analytics/data/trading_app.db\" \"SELECT * FROM model_performance_summary LIMIT 1;\")",
+      "Bash(python -m uvicorn app.main:app --port 8094 --host 127.0.0.1)",
+      "Read(//d/PythonRepos/trading-analytics/**)"
+    ],
+    "additionalDirectories": [
+      "D:\\PythonRepos\\trading-analytics\\ML",
+      "D:\\PythonRepos\\trading-analytics\\data"
+    ]
+  }
+}

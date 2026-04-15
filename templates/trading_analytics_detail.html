@@ -1,0 +1,362 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.title }} — Shree K Bhattarai, Ph.D.{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section class="max-w-6xl mx-auto px-8 py-10">
+
+    <a href="/projects" class="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-sky-400 transition-colors mb-8">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        All Projects
+    </a>
+
+    <div class="grid md:grid-cols-2 gap-10 items-start">
+        <div>
+            <h1 class="text-4xl font-bold text-white mb-4 leading-tight">{{ project.title }}</h1>
+            <p class="text-slate-400 text-lg leading-relaxed mb-6">{{ project.description }}</p>
+
+            <!-- Private repo note -->
+            <div class="flex items-start gap-3 bg-slate-800/40 border border-slate-700/60 rounded-lg px-4 py-3 mb-5">
+                <svg class="w-4 h-4 text-slate-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 1C8.676 1 6 3.676 6 7v1H4v15h16V8h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v1H8V7c0-2.276 1.724-4 4-4zm0 9a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/>
+                </svg>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Core logic lives in a <strong class="text-slate-400">private repository</strong>.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+                {% for tag in project.tags %}
+                <span class="bg-sky-500/10 text-sky-300 border border-sky-500/30 px-3 py-1 rounded-full text-xs font-medium">{{ tag }}</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Strategy Rules -->
+        <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-5 space-y-2.5">
+            <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Strategy Rules</h3>
+            <div class="flex items-start gap-2 text-sm">
+                <span class="text-emerald-400 shrink-0">✓</span>
+                <span class="text-slate-400">Market filter: only trade when <strong class="text-slate-200">SPY &gt; moving average</strong></span>
+            </div>
+            <div class="flex items-start gap-2 text-sm">
+                <span class="text-emerald-400 shrink-0">✓</span>
+                <span class="text-slate-400">Entry: RSI oversold <strong class="text-slate-200">+</strong> MACD bullish <strong class="text-slate-200">+</strong> Volume spike <strong class="text-slate-200">+</strong> Positive sentiment</span>
+            </div>
+            <div class="flex items-start gap-2 text-sm">
+                <span class="text-sky-400 shrink-0">⬡</span>
+                <span class="text-slate-400">Trailing stop: ATR-based, triggered when price retreats from peak</span>
+            </div>
+            <div class="flex items-start gap-2 text-sm">
+                <span class="text-red-400 shrink-0">✕</span>
+                <span class="text-slate-400">Hard stop: fixed drawdown limit from entry</span>
+            </div>
+            <div class="flex items-start gap-2 text-sm">
+                <span class="text-emerald-400 shrink-0">↑</span>
+                <span class="text-slate-400">Take profit: fixed gain target from entry</span>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-slate-700">
+                <a href="https://trading.khaaskuro.com/"
+                   class="inline-flex items-center justify-center gap-2 bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/30 hover:border-sky-500/50 text-sky-400 px-4 py-2.5 rounded-lg text-xs font-semibold transition-all w-full">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                    View Full Webpage
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stat bar -->
+<section class="max-w-6xl mx-auto px-8 pb-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+        {% if perf %}
+        <div class="bg-slate-800/40 border border-slate-700/60 rounded-xl p-4 text-center">
+            <div class="text-4xl font-black text-sky-400 font-mono">{{ "%.0f"|format(perf.display_rate) }}%</div>
+            <div class="text-sm font-bold text-slate-500 uppercase tracking-widest mt-1">{{ perf.label }} Directional Accuracy</div>
+            <div class="flex justify-center items-center gap-2 mt-2">
+                <span class="text-sm text-slate-600">Low <span class="text-slate-400 font-mono font-bold">{{ "%.0f"|format(perf.min) }}%</span></span>
+                <span class="text-slate-700">·</span>
+                <span class="text-sm text-slate-600">High <span class="text-slate-400 font-mono font-bold">{{ "%.0f"|format(perf.max) }}%</span></span>
+            </div>
+            <div class="text-xs text-slate-700 mt-1">across {{ perf.ticker_count }} tickers</div>
+        </div>
+        {% else %}
+        <div class="bg-slate-800/40 border border-slate-700/60 rounded-xl p-4 text-center">
+            <div class="text-4xl font-black text-slate-600 font-mono">—</div>
+            <div class="text-sm font-bold text-slate-500 uppercase tracking-widest mt-1">Directional Accuracy</div>
+        </div>
+        {% endif %}
+
+        <div class="bg-slate-800/40 border border-slate-700/60 rounded-xl p-4 text-center">
+            <div class="text-4xl font-black text-sky-400 font-mono">3</div>
+            <div class="text-sm font-bold text-slate-500 uppercase tracking-widest mt-1">Model Ensemble</div>
+            <div class="text-xs text-slate-600 mt-0.5">CatBoost · LightGBM · Theta</div>
+        </div>
+        <div class="bg-slate-800/40 border border-slate-700/60 rounded-xl p-4 text-center">
+            <div class="text-4xl font-black text-sky-400 font-mono">3×</div>
+            <div class="text-sm font-bold text-slate-500 uppercase tracking-widest mt-1">Daily Scan Cadence</div>
+        </div>
+        <div class="bg-slate-800/40 border border-slate-700/60 rounded-xl p-4 text-center">
+            <div class="text-4xl font-black text-sky-400 font-mono">30d</div>
+            <div class="text-sm font-bold text-slate-500 uppercase tracking-widest mt-1">Forecast Horizon</div>
+        </div>
+    </div>
+</section>
+
+<div class="max-w-6xl mx-auto px-8"><hr class="border-slate-800"></div>
+
+<!-- Insight cards -->
+<section class="max-w-6xl mx-auto px-8 py-8">
+    <div class="grid md:grid-cols-2 gap-5">
+
+        <div class="bg-slate-800/30 border border-slate-700/60 rounded-xl p-5">
+            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Why This Is Hard</h4>
+            <p class="text-sm text-slate-500 leading-relaxed">Stock prices approximate a random walk. Most ML models overfit on historical patterns and collapse out-of-sample. This system guards against that with a market-regime filter, strict multi-condition signal gating, and walk-forward validated backtests — so signals reflect real edge, not curve-fitting.</p>
+        </div>
+
+        <div class="bg-slate-800/30 border border-slate-700/60 rounded-xl p-5">
+            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Signal Gate</h4>
+            <p class="text-sm text-slate-500 leading-relaxed">A buy signal fires only when a proprietary set of technical, volume, and sentiment parameters simultaneously agree. This strict multi-condition gate filters the vast majority of candidate setups — keeping only high-conviction entries where several independent signals converge.</p>
+        </div>
+
+        <div class="bg-slate-800/30 border border-slate-700/60 rounded-xl p-5">
+            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Production Infrastructure</h4>
+            <p class="text-sm text-slate-500 leading-relaxed">Fully automated pipeline: a task scheduler fires scans 4× daily, a message broker queues the jobs, and live prices plus news headlines are ingested automatically — no manual intervention. When a signal fires, I receive an email alert and act on it.</p>
+        </div>
+
+        <div class="bg-slate-800/30 border border-slate-700/60 rounded-xl p-5">
+            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Rigorous Model Evaluation</h4>
+            <p class="text-sm text-slate-500 leading-relaxed">Each model's directional accuracy is tracked independently on out-of-sample data. The best-performing model per ticker is highlighted in the charts below — the ensemble isn't blind averaging, it's informed selection backed by live hit-rate tracking.</p>
+        </div>
+
+        <div class="bg-slate-800/30 border border-slate-700/60 rounded-xl p-5">
+            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">How Score Is Calculated</h4>
+            <p class="text-sm text-slate-500 leading-relaxed">The Score combines Signal Strength, Model Confidence, and Win Rate as a weighted value. Higher scores indicate higher conviction signals where multiple components align — tickers with scores 70+ represent the most promising entry opportunities.</p>
+        </div>
+
+        <div class="bg-slate-800/30 border border-slate-700/60 rounded-xl p-5">
+            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Watchlist Filter (Sieve)</h4>
+            <p class="text-sm text-slate-500 leading-relaxed">Tickers in the Alpha Intelligence table are filtered to show only those with historical backtest performance above 30% total P&L, plus core portfolio holdings. This ensures you're focusing on setups with proven statistical edge and established trade history.</p>
+        </div>
+
+    </div>
+</section>
+
+<div class="max-w-6xl mx-auto px-8"><hr class="border-slate-800"></div>
+
+<!-- Alpha Intelligence Table -->
+<section class="max-w-6xl mx-auto px-8 py-8">
+    <div class="bg-slate-900 rounded-2xl shadow-xl overflow-hidden border border-slate-800">
+
+        <!-- Table Header -->
+        <div class="px-6 py-4 bg-slate-800/30 border-b border-slate-800 flex justify-between items-center">
+            <div>
+                <h2 class="text-lg font-bold text-slate-100 uppercase tracking-tight">
+                    Alpha Intelligence <span class="text-slate-500 font-normal ml-2">(Watchlist)</span>
+                </h2>
+                <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-0.5">
+                    Click any ticker for deep-dive technical charts.
+                </p>
+            </div>
+            {% if last_refresh %}
+            <div class="text-right">
+                <p class="text-[10px] font-black text-slate-600 uppercase tracking-widest mb-1">Latest Scan Cycle</p>
+                <div class="flex items-center gap-2 justify-end">
+                    <div class="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]"></div>
+                    <p class="text-xs text-blue-400 font-mono">{{ last_refresh.strftime('%b %d, %Y  %I:%M %p') }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Sub-header -->
+        <div class="px-6 py-4 border-b border-slate-800/50 bg-slate-900/50 flex items-center justify-between">
+            <h3 class="text-xs font-black text-slate-500 uppercase tracking-widest">Top Quant Opportunities</h3>
+            <span class="text-[10px] font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full border border-blue-500/20">
+                Sieve: Total P/L &gt; 30% (+ Core Assets)
+            </span>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-800">
+                <thead class="bg-slate-900">
+                    <tr>
+                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-500 uppercase tracking-widest">Ticker</th>
+                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-500 uppercase tracking-widest">Price</th>
+                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-500 uppercase tracking-widest">Score</th>
+                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-500 uppercase tracking-widest">Signal &amp; Insights</th>
+                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-500 uppercase tracking-widest">Backtest Performance</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-slate-900/20 divide-y divide-slate-800">
+
+                    {% for item in watchlist %}
+                    {% set is_buy = item.signal and ('Buy' in item.signal or 'Strong Buy' in item.signal) %}
+
+                    <!-- Main row -->
+                    <tr class="hover:bg-slate-800/30 transition-all cursor-pointer border-l-4 border-transparent group {% if is_buy %}bg-emerald-500/5 border-l-emerald-500/50{% endif %}"
+                        onclick="toggleAccordion('{{ item.ticker }}', this)">
+
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="font-bold text-slate-200 font-mono text-lg tracking-tight group-hover:text-white transition-colors">{{ item.ticker }}</span>
+                                {% if item.in_portfolio %}
+                                <span class="ml-2 px-1.5 py-0.5 text-[9px] font-black bg-emerald-500/10 text-emerald-400 rounded border border-emerald-500/20 uppercase">Portfolio</span>
+                                {% endif %}
+                                {% if item.in_fixed %}
+                                <span class="ml-2 px-1.5 py-0.5 text-[9px] font-black bg-purple-500/10 text-purple-400 rounded border border-purple-500/20 uppercase">Fixed</span>
+                                {% endif %}
+                                {% if item.is_low_performance %}
+                                <span title="Low Performance Warning" class="ml-1 text-xs opacity-60">⚠️</span>
+                                {% endif %}
+                            </div>
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap font-mono text-sm text-slate-400">
+                            ${{ "%.2f"|format(item.last_price or 0) }}
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% set score = item.buy_score or 0 %}
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center font-black text-sm border-2 shadow-inner
+                                {% if score >= 70 %}bg-emerald-500/10 text-emerald-400 border-emerald-500/30
+                                {% elif score >= 50 %}bg-amber-500/10 text-amber-500 border-amber-500/30
+                                {% else %}bg-slate-800 text-slate-500 border-slate-700{% endif %}">
+                                {{ score }}
+                            </div>
+                        </td>
+
+                        <td class="px-6 py-4">
+                            <div class="font-black text-xs uppercase tracking-widest {% if is_buy %}text-emerald-400{% else %}text-slate-200{% endif %}">
+                                {{ item.signal or 'No Signal' }}
+                            </div>
+                            <div class="text-[11px] text-slate-500 mt-1 leading-relaxed max-w-sm line-clamp-1 group-hover:line-clamp-none transition-all">
+                                {{ item.reasoning }}
+                            </div>
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center justify-between">
+                                <div class="space-y-0.5">
+                                    <div class="text-[10px] font-black text-slate-500 uppercase tracking-tighter">
+                                        {{ "%.1f"|format(item.win_rate) }}% Win Rate / {{ item.total_trades }} Trades
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <div class="{% if item.total_pnl_pct >= 0 %}text-emerald-400{% else %}text-rose-400{% endif %} font-black font-mono text-xs tracking-tighter">
+                                            SIGNAL GROWTH: {{ "+" if item.total_pnl_pct >= 0 }}{{ "%.1f"|format(item.total_pnl_pct) }}%
+                                        </div>
+                                        <div class="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-[9px] font-bold text-slate-400 font-mono">
+                                            {{ "%.2f"|format(1 + item.total_pnl_pct / 100) }}x
+                                        </div>
+                                    </div>
+                                </div>
+                                <svg class="w-5 h-5 ml-4 text-slate-700 transform transition-transform duration-300 accordion-icon opacity-40 group-hover:opacity-100"
+                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Accordion chart row -->
+                    <tr id="accordion-{{ item.ticker }}" class="hidden bg-slate-950">
+                        <td colspan="5" class="px-6 py-8">
+                            <div id="content-{{ item.ticker }}"
+                                 class="min-h-[500px] flex flex-col gap-6 p-6 border border-slate-800 rounded-3xl bg-slate-900/50 shadow-inner relative overflow-hidden">
+                                <!-- Skeleton loader -->
+                                <div class="flex flex-col lg:flex-row gap-6 animate-pulse">
+                                    <div class="flex-1 flex flex-col gap-4">
+                                        <div class="h-12 bg-slate-800 rounded-xl w-3/4"></div>
+                                        <div class="h-[330px] bg-slate-800 rounded-xl w-full"></div>
+                                        <div class="h-[200px] bg-slate-800 rounded-xl w-full"></div>
+                                    </div>
+                                    <div class="lg:w-[450px] flex flex-col gap-6">
+                                        <div class="h-[150px] bg-slate-800 rounded-xl w-full"></div>
+                                        <div class="h-[300px] bg-slate-800 rounded-xl w-full"></div>
+                                    </div>
+                                </div>
+                                <div class="absolute inset-0 flex items-center justify-center bg-slate-900/20 backdrop-blur-[2px]">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-12 h-12 rounded-full border-4 border-slate-800 border-t-blue-500 animate-spin mb-4"></div>
+                                        <p class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] animate-pulse">
+                                            Decrypting Market Data for {{ item.ticker }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                    {% if not watchlist %}
+                    <tr>
+                        <td colspan="5" class="px-6 py-16 text-center text-slate-600 italic text-sm">
+                            No data available.
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script>
+function toggleAccordion(ticker, clickedRow) {
+    const row = document.getElementById('accordion-' + ticker);
+    const content = document.getElementById('content-' + ticker);
+
+    // Close all other open accordions
+    document.querySelectorAll('[id^="accordion-"]').forEach(el => {
+        if (el.id !== 'accordion-' + ticker) {
+            el.classList.add('hidden');
+            const otherRow = el.previousElementSibling;
+            if (otherRow && otherRow.tagName === 'TR') {
+                otherRow.classList.remove('bg-slate-800/40', 'border-l-blue-500');
+                const icon = otherRow.querySelector('.accordion-icon');
+                if (icon) icon.classList.remove('rotate-180', 'text-blue-400', 'opacity-100');
+            }
+        }
+    });
+
+    const icon = clickedRow.querySelector('.accordion-icon');
+
+    if (row.classList.contains('hidden')) {
+        row.classList.remove('hidden');
+        clickedRow.classList.add('bg-slate-800/40', 'border-l-blue-500');
+        if (icon) icon.classList.add('rotate-180', 'text-blue-400', 'opacity-100');
+
+        if (content.getAttribute('data-loaded') !== 'true') {
+            fetch('/projects/trading-analytics/plot/' + ticker)
+                .then(r => r.text())
+                .then(html => {
+                    content.innerHTML = html;
+                    content.setAttribute('data-loaded', 'true');
+                    // Re-execute any inline scripts in the loaded HTML
+                    content.querySelectorAll('script').forEach(oldScript => {
+                        const newScript = document.createElement('script');
+                        newScript.text = oldScript.text;
+                        document.body.appendChild(newScript);
+                    });
+                });
+        }
+    } else {
+        row.classList.add('hidden');
+        clickedRow.classList.remove('bg-slate-800/40', 'border-l-blue-500');
+        if (icon) icon.classList.remove('rotate-180', 'text-blue-400', 'opacity-100');
+    }
+}
+</script>
+
+{% endblock %}

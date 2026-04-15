@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Projects — Shree K Bhattarai, Ph.D.{% endblock %}
+
+{% block content %}
+
+<section class="max-w-5xl mx-auto px-8 py-16">
+
+    <h1 class="text-4xl font-bold text-white mb-2">Projects</h1>
+    <p class="text-slate-400 mb-12">
+        End-to-end ML systems built and deployed in production.
+        Click any project to explore the methodology and interact with the model.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-6">
+        {% for project in projects %}
+        <a href="/projects/{{ project.slug }}"
+           class="group bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden
+                  hover:border-sky-500/50 hover:shadow-xl transition-all block">
+
+            <!-- Demo image preview -->
+            {% if project.demo_image %}
+            <div class="h-48 overflow-hidden bg-slate-900">
+                <img src="{{ project.demo_image }}"
+                     alt="{{ project.demo_ticker }} chart"
+                     class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+            </div>
+            {% endif %}
+
+            <div class="p-6">
+                <h2 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">
+                    {{ project.title }}
+                </h2>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    {{ project.description }}
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    {% for tag in project.tags %}
+                    <span class="bg-slate-700 text-slate-300 px-2 py-0.5 rounded text-xs font-medium">
+                        {{ tag }}
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,426 @@
+{% extends "base.html" %}
+
+{% block title %}Shree K Bhattarai, Ph.D. — Data Scientist{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="max-w-5xl mx-auto px-8 py-20 flex flex-col md:flex-row items-center gap-16">
+
+    <!-- Photo -->
+    <div class="flex-shrink-0">
+        <div class="w-52 h-52 rounded-full overflow-hidden shadow-2xl ring-4 ring-sky-500 ring-offset-4 ring-offset-slate-950">
+            <img
+                src="/static/profile.jpg"
+                alt="Shree K Bhattarai"
+                class="w-full h-full object-cover"
+            >
+        </div>
+    </div>
+
+    <!-- Intro text -->
+    <div>
+        <p class="text-sky-400 font-semibold text-sm uppercase tracking-widest mb-2">
+            Senior Data Scientist · MLOps · Predictive Analytics
+        </p>
+        <h1 class="text-5xl font-bold text-white mb-4 leading-tight">
+            Shree K Bhattarai,<br>Ph.D.
+        </h1>
+        <p class="text-slate-400 text-lg leading-relaxed mb-8 max-w-lg">
+            Senior Data Scientist with 5+ years developing and deploying predictive
+            statistical and machine learning models to solve complex business problems.
+            Expert in the full data science lifecycle — with a proven track record of
+            translating data-driven insights into quantifiable business impact.
+        </p>
+        <div class="flex gap-4 flex-wrap">
+            <a href="/projects"
+               class="bg-sky-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-sky-500 transition-colors shadow">
+                View Projects
+            </a>
+            <a href="mailto:shree.bhattarai@gmail.com"
+               class="border border-slate-600 text-slate-300 px-6 py-3 rounded-lg font-medium hover:bg-slate-800 transition-colors">
+                Contact Me
+            </a>
+        </div>
+    </div>
+
+</section>
+
+<!-- Divider -->
+<div class="max-w-5xl mx-auto px-8"><hr class="border-slate-800"></div>
+
+<!-- Technical Skills Section — 3 tiles -->
+<section class="max-w-5xl mx-auto px-8 py-16">
+    <h2 class="text-2xl font-bold text-white mb-8">Technical Skills</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+
+        <!-- Tile 1: Languages & Libraries -->
+        <div class="bg-slate-800/50 border border-sky-500/20 rounded-xl p-6">
+            <h3 class="text-xs font-semibold text-sky-400 uppercase tracking-wider mb-4">
+                Languages &amp; Libraries
+            </h3>
+            <div class="flex flex-wrap gap-2">
+
+                <span class="inline-flex items-center gap-1.5 bg-sky-500/10 text-sky-300 border border-sky-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/python/7DD3FC" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    Python
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-sky-500/10 text-sky-300 border border-sky-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/pandas/7DD3FC" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    Pandas
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-sky-500/10 text-sky-300 border border-sky-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/polars/7DD3FC" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    Polars
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-sky-500/10 text-sky-300 border border-sky-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/scikitlearn/7DD3FC" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    Scikit-learn
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-sky-500/10 text-sky-300 border border-sky-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/tensorflow/7DD3FC" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    TensorFlow
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-sky-500/10 text-sky-300 border border-sky-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/apachespark/7DD3FC" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    PySpark
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-sky-500/10 text-sky-300 border border-sky-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/r/7DD3FC" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    R
+                </span>
+                <!-- No widely-recognized logos for these -->
+                <span class="bg-sky-500/10 text-sky-300 border border-sky-500/30 px-3 py-1.5 rounded-full text-xs font-medium">SQL</span>
+                <span class="bg-sky-500/10 text-sky-300 border border-sky-500/30 px-3 py-1.5 rounded-full text-xs font-medium">Statsmodel</span>
+                <span class="bg-sky-500/10 text-sky-300 border border-sky-500/30 px-3 py-1.5 rounded-full text-xs font-medium">NetworkX</span>
+                <span class="bg-sky-500/10 text-sky-300 border border-sky-500/30 px-3 py-1.5 rounded-full text-xs font-medium">Neo4j</span>
+
+            </div>
+        </div>
+
+        <!-- Tile 2: Platforms & Tools -->
+        <div class="bg-slate-800/50 border border-violet-500/20 rounded-xl p-6">
+            <h3 class="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-4">
+                Platforms &amp; Tools
+            </h3>
+            <div class="flex flex-wrap gap-2">
+
+                <span class="inline-flex items-center gap-1.5 bg-violet-500/10 text-violet-300 border border-violet-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/googlecloud/C4B5FD" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    GCP / Vertex AI
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-violet-500/10 text-violet-300 border border-violet-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/amazonaws/C4B5FD" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    AWS
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-violet-500/10 text-violet-300 border border-violet-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/googlebigquery/C4B5FD" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    BigQuery
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-violet-500/10 text-violet-300 border border-violet-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/docker/C4B5FD" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    Docker
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-violet-500/10 text-violet-300 border border-violet-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/kubernetes/C4B5FD" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    Kubernetes
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-violet-500/10 text-violet-300 border border-violet-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/looker/C4B5FD" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    Looker Studio
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-violet-500/10 text-violet-300 border border-violet-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/tableau/C4B5FD" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    Tableau
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-violet-500/10 text-violet-300 border border-violet-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/github/C4B5FD" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    GitHub
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-violet-500/10 text-violet-300 border border-violet-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/kubeflow/C4B5FD" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    KubeFlow
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-violet-500/10 text-violet-300 border border-violet-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <img src="https://cdn.simpleicons.org/palantir/C4B5FD" class="w-3.5 h-3.5 flex-shrink-0" alt="" onerror="this.style.display='none'">
+                    Foundry
+                </span>
+
+            </div>
+        </div>
+
+        <!-- Tile 3: ML Expertise -->
+        <!-- These are methodologies, not products — no product logos exist -->
+        <div class="bg-slate-800/50 border border-emerald-500/20 rounded-xl p-6">
+            <h3 class="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-4">
+                ML Expertise
+            </h3>
+            <div class="flex flex-wrap gap-2">
+                {% for skill in ["Regression", "Classification", "Clustering", "Forecasting", "NLP", "Ensemble Methods", "Deep Learning", "Statistical Inference"] %}
+                <span class="bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 px-3 py-1.5 rounded-full text-xs font-medium">
+                    {{ skill }}
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Divider -->
+<div class="max-w-5xl mx-auto px-8"><hr class="border-slate-800"></div>
+
+<!-- Experience Section — horizontal tile accordion -->
+<section class="max-w-5xl mx-auto px-8 py-16">
+    <h2 class="text-2xl font-bold text-white mb-8">Experience</h2>
+
+    <div x-data="{ open: null }" class="flex flex-wrap gap-4">
+
+        <!-- Tile 1: American Tire Distributors -->
+        <div @click="open = open === 0 ? null : 0"
+             :class="open === 0 ? 'basis-full' : 'flex-1 min-w-52'"
+             class="bg-slate-800/50 border border-slate-700 rounded-xl cursor-pointer
+                    transition-all duration-300 hover:border-sky-500/40 overflow-hidden">
+            <div class="flex h-full">
+                <div class="p-5 shrink-0 transition-[width] duration-300"
+                     :class="open === 0 ? 'w-64 border-r border-slate-700/60' : 'w-full'">
+                    <p class="text-xs text-slate-500 font-medium mb-1">Jan 2024 – Present</p>
+                    <h3 class="text-sm font-bold text-white leading-snug">Data Scientist</h3>
+                    <p class="text-sky-400 text-sm font-medium mt-0.5">American Tire Distributors</p>
+                    <p class="text-slate-600 text-xs mt-0.5">Huntersville, NC</p>
+                    <div class="mt-3 flex items-center gap-1.5" x-show="open !== 0">
+                        <span class="text-xs text-slate-600">expand</span>
+                        <svg class="w-3 h-3 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </div>
+                <div x-show="open === 0" x-transition.opacity class="flex-1 p-5">
+                    <ul class="space-y-2.5">
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Engineered a sales forecasting model for <strong class="text-slate-200">100K+ SKUs</strong> across hundreds of centers deployed on Vertex AI, boosting accuracy by <strong class="text-sky-400">6%</strong> over the commercial baseline.</span>
+                        </li>
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Built a BigQuery SQL pipeline automating equivalent tire identification, cutting alternative-recommendation time from <strong class="text-slate-200">weeks to under 24 hours</strong> after vendor loss.</span>
+                        </li>
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Developed an NLP + tree-based classification model for tire equivalency, boosting sales by <strong class="text-sky-400">~3%</strong>.</span>
+                        </li>
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Created Python simulation models and dashboards for inventory management, contributing to a <strong class="text-sky-400">~4% reduction</strong> in overstocking.</span>
+                        </li>
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Owned full lifecycle of a clustering model (Vertex AI) delivering distribution center location recommendations based on sales, location, and demand.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tile 2: Torqata -->
+        <div @click="open = open === 1 ? null : 1"
+             :class="open === 1 ? 'basis-full' : 'flex-1 min-w-52'"
+             class="bg-slate-800/50 border border-slate-700 rounded-xl cursor-pointer
+                    transition-all duration-300 hover:border-sky-500/40 overflow-hidden">
+            <div class="flex h-full">
+                <div class="p-5 shrink-0 transition-[width] duration-300"
+                     :class="open === 1 ? 'w-64 border-r border-slate-700/60' : 'w-full'">
+                    <p class="text-xs text-slate-500 font-medium mb-1">Feb 2021 – Dec 2023</p>
+                    <h3 class="text-sm font-bold text-white leading-snug">Data Scientist</h3>
+                    <p class="text-sky-400 text-sm font-medium mt-0.5">Torqata Data and Analytics</p>
+                    <p class="text-slate-600 text-xs mt-0.5">Huntersville, NC</p>
+                    <div class="mt-3 flex items-center gap-1.5" x-show="open !== 1">
+                        <span class="text-xs text-slate-600">expand</span>
+                        <svg class="w-3 h-3 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </div>
+                <div x-show="open === 1" x-transition.opacity class="flex-1 p-5">
+                    <ul class="space-y-2.5">
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Key IC in a fast-paced startup, designing and deploying complex data products from <strong class="text-slate-200">0-to-1</strong>.</span>
+                        </li>
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Built a customer sales dashboard leveraging large-scale POS data for competitive performance insights across geographic levels.</span>
+                        </li>
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Partnered with Data Engineering to design and deploy scalable data pipelines ensuring clean, error-free processing across microservices.</span>
+                        </li>
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Led creation of a market insight dashboard in Looker Studio — adopted by <strong class="text-slate-200">major manufacturers</strong> as a premium product.</span>
+                        </li>
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Enhanced classification models improving tire purchase prediction accuracy from <strong class="text-sky-400">87% to 97%</strong>.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tile 3: UNC Charlotte -->
+        <div @click="open = open === 2 ? null : 2"
+             :class="open === 2 ? 'basis-full' : 'flex-1 min-w-52'"
+             class="bg-slate-800/50 border border-slate-700 rounded-xl cursor-pointer
+                    transition-all duration-300 hover:border-sky-500/40 overflow-hidden">
+            <div class="flex h-full">
+                <div class="p-5 shrink-0 transition-[width] duration-300"
+                     :class="open === 2 ? 'w-64 border-r border-slate-700/60' : 'w-full'">
+                    <p class="text-xs text-slate-500 font-medium mb-1">Jul 2015 – May 2022</p>
+                    <h3 class="text-sm font-bold text-white leading-snug">Undergrad Lab Coordinator</h3>
+                    <p class="text-sky-400 text-sm font-medium mt-0.5">UNC Charlotte</p>
+                    <p class="text-slate-600 text-xs mt-0.5">Charlotte, NC</p>
+                    <div class="mt-3 flex items-center gap-1.5" x-show="open !== 2">
+                        <span class="text-xs text-slate-600">expand</span>
+                        <svg class="w-3 h-3 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </div>
+                <div x-show="open === 2" x-transition.opacity class="flex-1 p-5">
+                    <ul class="space-y-2.5">
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Authored lab manuals and delivered lectures for Physics-I and II lab courses.</span>
+                        </li>
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Managed and mentored a team of <strong class="text-slate-200">30+ graduate teaching assistants</strong> per semester, overseeing technical work to enhance lab efficiency and instructional quality.</span>
+                        </li>
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Oversaw department website management and annual budget preparation.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tile 4: UT Arlington -->
+        <div @click="open = open === 3 ? null : 3"
+             :class="open === 3 ? 'basis-full' : 'flex-1 min-w-52'"
+             class="bg-slate-800/50 border border-slate-700 rounded-xl cursor-pointer
+                    transition-all duration-300 hover:border-sky-500/40 overflow-hidden">
+            <div class="flex h-full">
+                <div class="p-5 shrink-0 transition-[width] duration-300"
+                     :class="open === 3 ? 'w-64 border-r border-slate-700/60' : 'w-full'">
+                    <p class="text-xs text-slate-500 font-medium mb-1">Jun 2013 – Jun 2015</p>
+                    <h3 class="text-sm font-bold text-white leading-snug">Lab Coordinator</h3>
+                    <p class="text-sky-400 text-sm font-medium mt-0.5">Univ. of Texas at Arlington</p>
+                    <p class="text-slate-600 text-xs mt-0.5">Arlington, TX</p>
+                    <div class="mt-3 flex items-center gap-1.5" x-show="open !== 3">
+                        <span class="text-xs text-slate-600">expand</span>
+                        <svg class="w-3 h-3 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </div>
+                <div x-show="open === 3" x-transition.opacity class="flex-1 p-5">
+                    <ul class="space-y-2.5">
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Increased lab manual revenue by <strong class="text-sky-400">20%</strong> while reducing publication costs.</span>
+                        </li>
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Delivered lectures and developed course materials for PHYS-102.</span>
+                        </li>
+                        <li class="flex gap-2 text-sm text-slate-400">
+                            <span class="text-sky-400 shrink-0 mt-0.5">▸</span>
+                            <span>Automated grade management systems, reducing grade release time from <strong class="text-slate-200">one week to one day</strong>.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Divider -->
+<div class="max-w-5xl mx-auto px-8"><hr class="border-slate-800"></div>
+
+<!-- Education Section — 2 tiles -->
+<section class="max-w-5xl mx-auto px-8 py-16">
+    <h2 class="text-2xl font-bold text-white mb-8">Education</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+
+        <!-- PhD tile -->
+        <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 flex items-start gap-4">
+            <div class="w-11 h-11 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                </svg>
+            </div>
+            <div>
+                <p class="text-xs text-slate-500 font-medium mb-1">Graduated May 2013</p>
+                <h3 class="text-base font-bold text-white">Doctor of Philosophy</h3>
+                <p class="text-sky-400 text-sm font-medium mt-0.5">Physics &amp; Applied Physics</p>
+                <p class="text-slate-400 text-sm mt-1">University of Texas at Arlington</p>
+                <p class="text-slate-600 text-xs mt-0.5">Arlington, TX</p>
+            </div>
+        </div>
+
+        <!-- Masters tile -->
+        <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 flex items-start gap-4">
+            <div class="w-11 h-11 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                </svg>
+            </div>
+            <div>
+                <p class="text-xs text-slate-500 font-medium mb-1">Graduated May 2023</p>
+                <h3 class="text-base font-bold text-white">Master of Science</h3>
+                <p class="text-violet-400 text-sm font-medium mt-0.5">Data Science &amp; Business Analytics</p>
+                <p class="text-slate-400 text-sm mt-1">UNC Charlotte</p>
+                <p class="text-slate-600 text-xs mt-0.5">Charlotte, NC</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Featured Projects Preview -->
+<div class="bg-slate-900 py-16 border-t border-slate-800">
+    <div class="max-w-5xl mx-auto px-8">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold text-white">Featured Projects</h2>
+            <a href="/projects" class="text-sky-400 font-medium hover:underline text-sm">
+                View all →
+            </a>
+        </div>
+
+        <div x-data="{ projects: [] }"
+             x-init="fetch('/api/projects').then(r => r.json()).then(d => projects = d)">
+            <div class="grid md:grid-cols-2 gap-6">
+                <template x-for="project in projects.slice(0, 2)" :key="project.id">
+                    <a :href="'/projects/' + project.slug"
+                       class="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-sky-500/50 hover:shadow-lg transition-all block">
+                        <h3 class="font-bold text-white text-lg mb-2" x-text="project.title"></h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4" x-text="project.description"></p>
+                        <div class="flex flex-wrap gap-2">
+                            <template x-for="tag in project.tags" :key="tag">
+                                <span class="bg-slate-700 text-slate-400 px-2 py-0.5 rounded text-xs font-medium"
+                                      x-text="tag"></span>
+                            </template>
+                        </div>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# Model files (large — upload separately via SCP to VPS)
+app/models/*.joblib
+app/models/*.pkl
+app/models/*.onnx
+
+# Environment variables
+.env
+
+# OS
+.DS_Store
+Thumbs.db

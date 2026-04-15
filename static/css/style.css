@@ -1,0 +1,11 @@
+/* Custom styles — Tailwind handles most of the heavy lifting */
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Fix photo orientation (reads EXIF rotation data) */
+img {
+    image-orientation: from-image;
+}

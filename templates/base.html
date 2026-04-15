@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Shree K Bhattarai, Ph.D.{% endblock %}</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js (for interactive prediction forms) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- Plotly.js (for interactive charts on project pages) -->
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans">
+
+    <!-- Navigation -->
+    <nav class="bg-slate-900 text-white px-8 py-4 flex justify-between items-center border-b border-slate-800">
+        <a href="/" class="text-lg font-semibold tracking-wide hover:text-sky-400 transition-colors">
+            Shree K Bhattarai
+        </a>
+        <div class="flex gap-8 text-sm font-medium">
+            <a href="/" class="hover:text-sky-400 transition-colors">Home</a>
+            <a href="/projects" class="hover:text-sky-400 transition-colors">Projects</a>
+            <a href="https://github.com/plasmicshree" target="_blank"
+               class="hover:text-sky-400 transition-colors">GitHub</a>
+            <a href="https://www.linkedin.com/in/shree-bhattarai-phd-92625316/" target="_blank"
+               class="hover:text-sky-400 transition-colors">LinkedIn</a>
+            <a href="https://scholar.google.com/citations?user=joJi0UQAAAAJ&hl=en" target="_blank"
+               class="hover:text-sky-400 transition-colors flex items-center gap-1.5">
+                <img src="https://cdn.simpleicons.org/googlescholar/FFFFFF"
+                     class="w-3.5 h-3.5" alt="" onerror="this.style.display='none'">
+                Scholar
+            </a>
+        </div>
+    </nav>
+
+    <!-- Page content -->
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-center py-8 mt-20 text-sm border-t border-slate-800">
+        <p>© 2026 Shree K Bhattarai, Ph.D. &nbsp;·&nbsp; Data Scientist &nbsp;·&nbsp;
+           <a href="mailto:shree.bhattarai@gmail.com" class="hover:text-sky-400 transition-colors">
+               shree.bhattarai@gmail.com
+           </a>
+        </p>
+    </footer>
+
+</body>
+</html>

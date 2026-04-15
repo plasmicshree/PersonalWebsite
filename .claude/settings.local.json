@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install:*)",
+      "Bash(uvicorn app.main:app --reload --port 8000)",
+      "Bash(python -m uvicorn app.main:app --reload --port 8000)",
+      "Bash(python -c \"import fastapi, starlette, jinja2; print\\('fastapi:', fastapi.__version__\\); print\\('starlette:', starlette.__version__\\); print\\('jinja2:', jinja2.__version__\\)\")",
+      "Bash(netstat -ano)",
+      "Bash(findstr \":8000\")",
+      "Bash(taskkill /PID 62852 /PID 20792 /PID 21900 /F)",
+      "Bash(ls d:/PythonRepos/trading-analytics/data/plots/*.png)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:8080/projects)",
+      "Bash(curl -s http://127.0.0.1:8080/projects)",
+      "Bash(tasklist /FI \"PID eq 23124\" /V)",
+      "Bash(tasklist /FI \"PID eq 23124\")",
+      "Bash(kill 23124)",
+      "Bash(uvicorn app.main:app --host 127.0.0.1 --port 8080 --reload)",
+      "Bash(taskkill /PID 23124 /F)",
+      "Bash(wmic process:*)",
+      "Bash(cmd /c \"taskkill /PID 23124 /F\")",
+      "Bash(echo \"exit: $?\")",
+      "Bash(cmd /c \"wmic process where ProcessId=23124 get WorkingDirectory\")",
+      "Bash(cmd /c \"wmic process where \\\\\"CommandLine like '%uvicorn%'\\\\\" get ProcessId,WorkingDirectory\")",
+      "Bash(powershell -Command \"Get-Process -Id 23124 | Select-Object -ExpandProperty MainModule | Select-Object -ExpandProperty FileName\")",
+      "Bash(powershell -Command \"\\(Get-Process -Id 23124\\).SI; \\(Get-WmiObject Win32_Process -Filter 'ProcessId=23124'\\).ExecutablePath\")",
+      "Bash(powershell -Command \"Stop-Process -Id 23124 -Force; Write-Host 'stopped'\")",
+      "Bash(curl -s http://127.0.0.1:8080/api/projects)",
+      "Bash(powershell -Command 'Get-WmiObject Win32_Process | Where-Object { $_.CommandLine -like '\\\\''*uvicorn*'\\\\'' -or $_.CommandLine -like '\\\\''*8080*'\\\\'' } | Select-Object ProcessId,CommandLine')",
+      "Bash(powershell -Command 'Get-WmiObject Win32_Process | Where-Object { $_.ProcessId -eq 23124 } | Select-Object ProcessId,Name,CommandLine,WorkingDirectory')"
+    ]
+  }
+}
