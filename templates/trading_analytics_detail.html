@@ -5,7 +5,7 @@
 {% block content %}
 
 <!-- Header -->
-<section class="max-w-6xl mx-auto px-8 py-10">
+<section class="max-w-6xl mx-auto px-4 sm:px-8 py-10">
 
     <a href="/projects" class="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-sky-400 transition-colors mb-8">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -13,6 +13,29 @@
         </svg>
         All Projects
     </a>
+
+    <!-- Page-type callout -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 p-4 sm:p-5 rounded-2xl bg-sky-500/5 border border-sky-500/20">
+        <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-sky-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div>
+                <p class="text-sm font-semibold text-sky-300">Project Overview Page</p>
+                <p class="text-xs text-slate-400 mt-0.5 leading-relaxed">
+                    This page documents how the system works and shows live sample data pulled from it.
+                    The full trading dashboard — with portfolio, signals, and controls — lives at a separate URL.
+                </p>
+            </div>
+        </div>
+        <a href="https://trading.khaaskuro.com/" target="_blank"
+           class="inline-flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-400 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-colors shadow-lg shadow-sky-500/20 whitespace-nowrap shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+            View Full Dashboard
+        </a>
+    </div>
 
     <div class="grid md:grid-cols-2 gap-10 items-start">
         <div>
@@ -58,16 +81,6 @@
             <div class="flex items-start gap-2 text-sm">
                 <span class="text-emerald-400 shrink-0">↑</span>
                 <span class="text-slate-400">Take profit: fixed gain target from entry</span>
-            </div>
-
-            <div class="mt-4 pt-4 border-t border-slate-700">
-                <a href="https://trading.khaaskuro.com/"
-                   class="inline-flex items-center justify-center gap-2 bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/30 hover:border-sky-500/50 text-sky-400 px-4 py-2.5 rounded-lg text-xs font-semibold transition-all w-full">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                    </svg>
-                    View Full Webpage
-                </a>
             </div>
         </div>
     </div>
