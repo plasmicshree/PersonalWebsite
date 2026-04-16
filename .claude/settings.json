@@ -18,7 +18,12 @@
       "Bash(curl -s http://127.0.0.1:8093/projects/trading-analytics)",
       "Bash(sqlite3 \"D:/PythonRepos/trading-analytics/data/trading_app.db\" \"SELECT * FROM model_performance_summary LIMIT 1;\")",
       "Bash(python -m uvicorn app.main:app --port 8094 --host 127.0.0.1)",
-      "Read(//d/PythonRepos/trading-analytics/**)"
+      "Read(//d/PythonRepos/trading-analytics/**)",
+      "Bash(python -m pre_commit run ruff --all-files)",
+      "Bash(python -m pre_commit run --all-files)",
+      "Bash(grep -v \"^ruff\\\\|^-\\\\|^$\\\\|^ruff-format\")",
+      "Bash(grep -v \"^$\")",
+      "Bash(grep -v \"^ruff\\\\|^-\\\\|^$\")"
     ],
     "additionalDirectories": [
       "D:\\PythonRepos\\trading-analytics\\ML",

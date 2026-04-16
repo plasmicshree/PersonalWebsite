@@ -444,7 +444,7 @@ sudo journalctl -u personal-website -f
 ### Update trading-analytics
 ```bash
 cd /opt/trading-analytics
-# Upload files via scp/robocopy from local, then:
+git pull origin main
 docker compose -f docker-compose.vps.yml build
 docker compose -f docker-compose.vps.yml up -d
 ```
