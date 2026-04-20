@@ -4,9 +4,12 @@ import pandas as pd
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request, HTTPException
+from fastapi.middleware.base import BaseHTTPMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 from pathlib import Path
 
 load_dotenv()
@@ -15,11 +18,37 @@ app = FastAPI(title="Personal Data Science Portfolio")
 
 BASE_DIR = Path(__file__).parent.parent
 
+# Initialize rate limiter (L2 fix)
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+
+
+# Security Headers Middleware (M1 fix)
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["Strict-Transport-Security"] = (
+            "max-age=31536000; includeSubDomains"
+        )
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response.headers["Content-Security-Policy"] = (
+            "default-src 'self'; script-src 'self' 'unsafe-inline' cdn.plot.ly; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:"
+        )
+        return response
+
+
+app.add_middleware(SecurityHeadersMiddleware)
+
 app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
 # Path to trading-analytics SQLite DB (override via TA_DB_PATH env var)
 TA_DB_PATH = os.getenv("TA_DB_PATH", "/opt/trading-data/trading_app.db")
+
+# Allowlisted tickers for portfolio site (H5 fix: restrict data exposure)
+ALLOWED_TICKERS = {"NFLX", "TSLA"}
 
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
@@ -30,11 +59,21 @@ def _clean(series):
 
 
 def _ta_conn():
-    conn = sqlite3.connect(TA_DB_PATH)
+    """Open trading-analytics database in read-only mode (L4 fix)."""
+    conn = sqlite3.connect(f"file:{TA_DB_PATH}?mode=ro", uri=True)
     conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA journal_mode=WAL")
-    conn.execute("PRAGMA busy_timeout=5000")
     return conn
+
+
+def _validate_ticker(ticker: str) -> str:
+    """Validate ticker is in allowlist (H5 fix: restrict data exposure)."""
+    ticker = ticker.strip().upper()
+    if ticker not in ALLOWED_TICKERS:
+        raise HTTPException(
+            status_code=403,
+            detail=f"Ticker '{ticker}' is not available. Only {', '.join(sorted(ALLOWED_TICKERS))} are supported.",
+        )
+    return ticker
 
 
 def _ta_perf_summary():
@@ -213,16 +252,18 @@ async def trading_analytics_page(request: Request):
 
 @app.get("/projects/trading-analytics/plot/{ticker}", response_class=HTMLResponse)
 async def ta_plot_container(request: Request, ticker: str):
+    ticker = _validate_ticker(ticker)
     return templates.TemplateResponse(
         request,
         "trading_plot_container.html",
-        {"request": request, "ticker": ticker.strip().upper()},
+        {"request": request, "ticker": ticker},
     )
 
 
 @app.get("/projects/trading-analytics/api/plot-data/{ticker}")
+@limiter.limit("30/minute")  # L2 fix: rate limiting
 async def ta_plot_data(ticker: str):
-    ticker = ticker.strip().upper()
+    ticker = _validate_ticker(ticker)
     conn = _ta_conn()
 
     rows = conn.execute(
@@ -353,8 +394,9 @@ async def ta_plot_data(ticker: str):
 
 
 @app.get("/projects/trading-analytics/api/ml-forecast/{ticker}")
+@limiter.limit("30/minute")  # L2 fix: rate limiting
 async def ta_ml_forecast(ticker: str):
-    ticker = ticker.strip().upper()
+    ticker = _validate_ticker(ticker)
     conn = _ta_conn()
 
     latest_ts_row = conn.execute(
