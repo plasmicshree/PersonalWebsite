@@ -262,7 +262,7 @@ async def ta_plot_container(request: Request, ticker: str):
 
 @app.get("/projects/trading-analytics/api/plot-data/{ticker}")
 @limiter.limit("30/minute")  # L2 fix: rate limiting
-async def ta_plot_data(ticker: str):
+async def ta_plot_data(request: Request, ticker: str):
     ticker = _validate_ticker(ticker)
     conn = _ta_conn()
 
@@ -395,7 +395,7 @@ async def ta_plot_data(ticker: str):
 
 @app.get("/projects/trading-analytics/api/ml-forecast/{ticker}")
 @limiter.limit("30/minute")  # L2 fix: rate limiting
-async def ta_ml_forecast(ticker: str):
+async def ta_ml_forecast(request: Request, ticker: str):
     ticker = _validate_ticker(ticker)
     conn = _ta_conn()
 
