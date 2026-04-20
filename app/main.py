@@ -34,7 +34,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         )
         response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
         response.headers["Content-Security-Policy"] = (
-            "default-src 'self'; script-src 'self' 'unsafe-inline' cdn.plot.ly; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:"
+            "default-src 'self'; script-src 'self' 'unsafe-inline' cdn.plot.ly cdn.tailwindcss.com cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' cdn.tailwindcss.com cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' data: cdn.jsdelivr.net"
         )
         return response
 
