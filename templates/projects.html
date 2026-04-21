@@ -18,15 +18,6 @@
            class="group bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden
                   hover:border-sky-500/50 hover:shadow-xl transition-all block">
 
-            <!-- Demo image preview -->
-            {% if project.demo_image %}
-            <div class="h-48 overflow-hidden bg-slate-900">
-                <img src="{{ project.demo_image }}"
-                     alt="{{ project.demo_ticker }} chart"
-                     class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
-            </div>
-            {% endif %}
-
             <div class="p-6">
                 <h2 class="text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">
                     {{ project.title }}

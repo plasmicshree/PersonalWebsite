@@ -83,30 +83,4 @@
 
 <div class="max-w-5xl mx-auto px-8"><hr class="border-slate-800"></div>
 
-<!-- Demo Chart -->
-{% if project.demo_image %}
-<section class="max-w-5xl mx-auto px-8 py-14">
-
-    <div class="flex items-center justify-between mb-6">
-        <h2 class="text-xl font-bold text-white">
-            Demo — <span class="text-sky-400">{{ project.demo_ticker }}</span>
-        </h2>
-        <span class="text-xs text-slate-500 bg-slate-800 border border-slate-700 px-3 py-1 rounded-full">
-            Sample output
-        </span>
-    </div>
-
-    <div class="rounded-xl overflow-hidden border border-slate-700 bg-slate-900 shadow-2xl">
-        <img src="{{ project.demo_image }}"
-             alt="{{ project.demo_ticker }} technical analysis chart"
-             class="w-full">
-    </div>
-
-    <p class="mt-4 text-slate-500 text-sm leading-relaxed">
-        {{ project.demo_caption }}
-    </p>
-
-</section>
-{% endif %}
-
 {% endblock %}

@@ -14,6 +14,9 @@ app/models/*.onnx
 # Environment variables
 .env
 
+# Security & Audit (work-in-progress)
+security_audit_report.md
+
 # OS
 .DS_Store
 Thumbs.db
