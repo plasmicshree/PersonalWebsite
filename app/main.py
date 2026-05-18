@@ -130,13 +130,7 @@ def _ta_perf_summary():
 def _ta_watchlist():
     try:
         conn = _ta_conn()
-        fixed = {
-            r["ticker"]
-            for r in conn.execute("SELECT ticker FROM watchlist_tickers").fetchall()
-        }
-        if not fixed:
-            conn.close()
-            return [], None
+        fixed = {"AXTI", "NFLX"}
 
         placeholders = ",".join("?" * len(fixed))
         rows = conn.execute(
@@ -177,7 +171,7 @@ def _ta_watchlist():
         for r in rows
     ]
     sorted_items = sorted(items, key=lambda x: x["buy_score"], reverse=True)
-    return sorted_items[:2], last_refresh
+    return sorted_items, last_refresh
 
 
 # ── Project data ──────────────────────────────────────────────────────────────
